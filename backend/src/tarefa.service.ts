@@ -68,4 +68,15 @@ export class TarefaService {
 
     return tarefa;
   }
+
+  async listarTarefas(id: number) {
+    const tarefas = await getConnection()
+      .createQueryBuilder()
+      .select('t')
+      .from(Tarefa, 't')
+      .where('t.membro=:membroId', { membroId: id })
+      .getMany();
+
+    return tarefas;
+  }
 }
