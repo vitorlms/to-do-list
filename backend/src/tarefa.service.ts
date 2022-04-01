@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { getConnection } from 'typeorm';
 import { CriarTarefaDto } from './dto/criar-tarefa.dto';
+import { EditarTarefaDto } from './dto/editar-tarefa.dto';
 import { Membro } from './entities/membro.entity';
 import { Tarefa } from './entities/tarefa.entity';
 
@@ -31,6 +32,37 @@ export class TarefaService {
         .insert()
         .into(Tarefa)
         .values(tarefa)
+        .execute();
+    }
+
+    return tarefa;
+  }
+
+  async editarTarefa(editarTarefaDto: EditarTarefaDto) {
+    const membro = await getConnection()
+      .createQueryBuilder()
+      .select('m')
+      .from(Membro, 'm')
+      .where('m.id=:membroId', { membroId: editarTarefaDto })
+      .getOne();
+
+    let tarefa: Tarefa;
+    if (membro) {
+      tarefa.membro = membro;
+      tarefa.nome = editarTarefaDto.nome;
+      tarefa.descricao = editarTarefaDto.descricao;
+      tarefa.finalizada = editarTarefaDto.finalizada;
+      tarefa.prioridade = editarTarefaDto.prioridade;
+
+      if (editarTarefaDto.finalizada) {
+        tarefa.dataTermino = new Date();
+      }
+
+      await getConnection()
+        .createQueryBuilder()
+        .update(Tarefa)
+        .set(tarefa)
+        .where('id=:tarefaId', { tarefaId: editarTarefaDto.id })
         .execute();
     }
 
