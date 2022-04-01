@@ -1,10 +1,21 @@
 import { Length } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Membro } from './membro.entity';
 
 @Entity()
 export class Tarefa {
   @PrimaryGeneratedColumn('increment')
   id!: number;
+
+  @ManyToOne(() => Membro, (membro) => membro.tarefas)
+  @JoinColumn()
+  membro: Membro;
 
   @Column({ nullable: false })
   @Length(5, 50)
