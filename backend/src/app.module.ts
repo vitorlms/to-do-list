@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Membro } from './entities/membro.entity';
 import { Tarefa } from './entities/tarefa.entity';
+import { TarefaService } from './tarefa.service';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import { Tarefa } from './entities/tarefa.entity';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, TarefaService],
 })
 export class AppModule {}
