@@ -1,5 +1,6 @@
 import { Length } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Tarefa } from './tarefa.entity';
 
 @Entity()
 export class Membro {
@@ -12,4 +13,7 @@ export class Membro {
   @Column({ nullable: false })
   @Length(5)
   nome: string;
+
+  @OneToMany(() => Tarefa, (tarefa) => tarefa.membro)
+  tarefas: Tarefa[];
 }
