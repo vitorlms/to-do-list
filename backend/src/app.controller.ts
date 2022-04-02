@@ -20,12 +20,12 @@ export class AppController {
   }
 
   @Post('membro')
-  async cadastrarMembro(criarMembroDto: CriarMembroDto) {
+  async cadastrarMembro(@Body() criarMembroDto: CriarMembroDto) {
     await this.membroService.cadastrarMembro(criarMembroDto);
   }
 
   @Post('tarefa')
-  async cadastrarTarefa(criarTarefaDto: CriarTarefaDto) {
+  async cadastrarTarefa(@Body() criarTarefaDto: CriarTarefaDto) {
     await this.tarefaService.cadastrarTarefa(criarTarefaDto);
   }
 
