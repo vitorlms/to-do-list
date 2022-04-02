@@ -21,6 +21,11 @@ export class AppController {
     await this.tarefaService.cadastrarTarefa(criarTarefaDto);
   }
 
+  @Get('tarefa/:id')
+  async findOne(@Param('id') id: string) {
+    return this.tarefaService.listarTarefas(+id);
+  }
+
   @Patch('tarefa')
   async editarTarefa(@Body() editarTarefaDto: EditarTarefaDto) {
     await this.tarefaService.editarTarefa(editarTarefaDto);
