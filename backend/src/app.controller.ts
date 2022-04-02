@@ -1,7 +1,9 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { CriarMembroDto } from './dto/criar-membro.dto';
 import { CriarTarefaDto } from './dto/criar-tarefa.dto';
 import { EditarTarefaDto } from './dto/editar-tarefa.dto';
+import { MembroService } from './membro.service';
 import { TarefaService } from './tarefa.service';
 
 @Controller()
@@ -9,11 +11,17 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly tarefaService: TarefaService,
+    private readonly membroService: MembroService,
   ) {}
 
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Post('membro')
+  async cadastrarMembro(criarMembroDto: CriarMembroDto) {
+    await this.membroService.cadastrarMembro(criarMembroDto);
   }
 
   @Post('tarefa')
