@@ -5,7 +5,7 @@ import { Membro } from './entities/membro.entity';
 
 @Injectable()
 export class MembroService {
-  async cadastrarTarefa(criarMembroDto: CriarMembroDto) {
+  async cadastrarMembro(criarMembroDto: CriarMembroDto) {
     const membro = new Membro();
     membro.email = criarMembroDto.email;
     membro.nome = criarMembroDto.nome;
