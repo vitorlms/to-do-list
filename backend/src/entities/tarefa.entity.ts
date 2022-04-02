@@ -27,7 +27,7 @@ export class Tarefa {
   @Column({ nullable: false, default: false })
   finalizada: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   dataTermino: Date;
 
   @Column({
