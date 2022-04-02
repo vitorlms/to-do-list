@@ -12,10 +12,10 @@ export class TarefaService {
       .createQueryBuilder()
       .select('m')
       .from(Membro, 'm')
-      .where('m.id=:membroId', { membroId: criarTarefaDto })
+      .where('m.id=:membroId', { membroId: criarTarefaDto.membro })
       .getOne();
 
-    let tarefa: Tarefa;
+    const tarefa = new Tarefa();
     if (membro) {
       tarefa.membro = membro;
       tarefa.nome = criarTarefaDto.nome;
@@ -43,10 +43,10 @@ export class TarefaService {
       .createQueryBuilder()
       .select('m')
       .from(Membro, 'm')
-      .where('m.id=:membroId', { membroId: editarTarefaDto })
+      .where('m.id=:membroId', { membroId: editarTarefaDto.membro })
       .getOne();
 
-    let tarefa: Tarefa;
+    const tarefa = new Tarefa();
     if (membro) {
       tarefa.membro = membro;
       tarefa.nome = editarTarefaDto.nome;
