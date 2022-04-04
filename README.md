@@ -15,3 +15,7 @@ Para iniciar o projeto backend:
 Frontend: não completamente funcional.
 
 Backend: API funcional.
+
+Provavelmente será necessário editar as configurações de conexão com o banco de dados no arquivo
+
+`/backend/src/app.module.ts`
