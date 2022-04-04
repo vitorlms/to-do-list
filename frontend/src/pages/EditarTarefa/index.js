@@ -1,6 +1,13 @@
 import { Button } from "@mui/material";
+import { AppBar } from "@mui/material";
+import { Switch } from "@mui/material";
+import { FormControlLabel } from "@mui/material";
 import { TextField } from "@mui/material";
 import { useState } from "react";
+import { InputLabel } from "@mui/material";
+import { MenuItem } from "@mui/material";
+import { Select } from "@mui/material";
+import { FormControl } from "@mui/material";
 import api from "../../services/api";
 
 const EditarTarefa= () => {
@@ -16,23 +23,22 @@ const EditarTarefa= () => {
     }
 
     function onChangeDescricao(event) {
-      tarefa.nome = event.target.value;
+      tarefa.descricao = event.target.value;
       setTarefa({ ...tarefa });
     }
 
     function onChangeFinalizada(event) {
-      tarefa.nome = event.target.value;
+      tarefa.finalizada = !tarefa.finalizada;
       setTarefa({ ...tarefa });
     }
 
     function onChangePrioridade(event) {
-      tarefa.nome = event.target.value;
+      tarefa.prioridade = event.target.value;
       setTarefa({ ...tarefa });
     }
 
   async function onSubmit() {
-    console.log(tarefa)
-    await api.post('tarefa', {
+    await api.patch('tarefa', {
       nome: tarefa.nome,
       descricao: tarefa.descricao,
       finalizada: tarefa.finalizada,
@@ -41,17 +47,32 @@ const EditarTarefa= () => {
   }
 
   return (
-    <div className="EditarTarefa">
-    <form>
-      <TextField type={"text"} label={"nome"} onChange={onChangeNome}/>
+    <div className="EditarTarefa" align={"center"}>
+        <AppBar>
+          <h1>Editar Tarefa</h1>
+        </AppBar>
+
+        <form style={{marginTop: "150px"}}>
+      <TextField style={{margin: "5px"}} type={"text"} label={"nome"} onChange={onChangeNome}/>
       <br/>
-      <TextField type={"text"} label={"descricao"} onChange={onChangeDescricao}/>
+      <TextField style={{margin: "5px"}} type={"text"} label={"descricao"} onChange={onChangeDescricao}/>
       <br/>
-      <TextField type={"radio"} label={"finalizada"} onChange={onChangeFinalizada}/>
+      <FormControlLabel control={<Switch/>} label={"finalizada"} onChange={onChangeFinalizada}/>
       <br/>
-      <TextField type={"text"} label={"prioridade"} onChange={onChangePrioridade}/>
+      <FormControl style={{margin: "5px"}}>
+        <InputLabel>Prioridade</InputLabel>
+        <Select
+          value={tarefa.prioridade}
+          label="Prioridade"
+          onChange={onChangePrioridade}
+        >
+          <MenuItem value={"Baixa"}>Baixa</MenuItem>
+          <MenuItem value={"Média"}>Média</MenuItem>
+          <MenuItem value={"Alta"}>Alta</MenuItem>
+        </Select>
+      </FormControl>
       <br/>
-      <Button onClick={onSubmit}> Editar Tarefa </Button>
+      <Button onClick={onSubmit} variant={"contained"}> Editar Tarefa </Button>
     </form>
     </div>
   )
