@@ -3,18 +3,36 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import api from "../../services/api";
 
-// interface Tarefa {
-//   nome: string;
-//   descricao: string;
-//   finalizada: boolean;
-//   prioridade: string;
-// }
-
 const CadastrarTarefa= () => {
-  const [tarefa, setTarefa] = useState({nome: '', descricao: '', finalizada: false, prioridade: 'Baixa'});
+  const [tarefa, setTarefa] = useState({
+    nome: '', 
+    descricao: '', 
+    finalizada: false, 
+    prioridade: 'Baixa'});
+
+    function onChangeNome(event) {
+      tarefa.nome = event.target.value;
+      setTarefa({ ...tarefa });
+    }
+
+    function onChangeDescricao(event) {
+      tarefa.nome = event.target.value;
+      setTarefa({ ...tarefa });
+    }
+
+    function onChangeFinalizada(event) {
+      tarefa.nome = event.target.value;
+      setTarefa({ ...tarefa });
+    }
+
+    function onChangePrioridade(event) {
+      tarefa.nome = event.target.value;
+      setTarefa({ ...tarefa });
+    }
+
   async function onSubmit() {
     console.log(tarefa)
-    await api.post('cadastrar-tarefas', {
+    await api.post('tarefa', {
       nome: tarefa.nome,
       descricao: tarefa.descricao,
       finalizada: tarefa.finalizada,
@@ -25,13 +43,13 @@ const CadastrarTarefa= () => {
   return (
     <div className="CadastrarTarefa">
     <form>
-      <TextField type={"text"} label={"nome"} onChange={setTarefa}/>
+      <TextField type={"text"} label={"nome"} onChange={onChangeNome}/>
       <br/>
-      <TextField type={"text"} label={"descricao"} onChange={setTarefa}/>
+      <TextField type={"text"} label={"descricao"} onChange={onChangeDescricao}/>
       <br/>
-      <TextField type={"radio"} label={"finalizada"} onChange={setTarefa}/>
+      <TextField type={"radio"} label={"finalizada"} onChange={onChangeFinalizada}/>
       <br/>
-      <TextField type={"text"} label={"prioridade"} onChange={setTarefa}/>
+      <TextField type={"text"} label={"prioridade"} onChange={onChangePrioridade}/>
       <br/>
       <Button onClick={onSubmit}> Cadastrar Tarefa </Button>
     </form>
