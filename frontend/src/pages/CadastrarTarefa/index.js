@@ -1,4 +1,7 @@
 import { Button } from "@mui/material";
+import { AppBar } from "@mui/material";
+import { FormControlLabel } from "@mui/material";
+import { Switch } from "@mui/material";
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import api from "../../services/api";
@@ -16,22 +19,21 @@ const CadastrarTarefa= () => {
     }
 
     function onChangeDescricao(event) {
-      tarefa.nome = event.target.value;
+      tarefa.descricao = event.target.value;
       setTarefa({ ...tarefa });
     }
 
     function onChangeFinalizada(event) {
-      tarefa.nome = event.target.value;
+      tarefa.finalizada = event.target.value;
       setTarefa({ ...tarefa });
     }
 
     function onChangePrioridade(event) {
-      tarefa.nome = event.target.value;
+      tarefa.prioridade = event.target.value;
       setTarefa({ ...tarefa });
     }
 
   async function onSubmit() {
-    console.log(tarefa)
     await api.post('tarefa', {
       nome: tarefa.nome,
       descricao: tarefa.descricao,
@@ -41,17 +43,21 @@ const CadastrarTarefa= () => {
   }
 
   return (
-    <div className="CadastrarTarefa">
-    <form>
-      <TextField type={"text"} label={"nome"} onChange={onChangeNome}/>
+    <div className="CadastrarTarefa" align={"center"}>
+        <AppBar>
+          <h1>Cadastrar Tarefa</h1>
+        </AppBar>
+
+        <form style={{marginTop: "150px"}}>
+      <TextField style={{margin: "5px"}} type={"text"} label={"nome"} onChange={onChangeNome}/>
       <br/>
-      <TextField type={"text"} label={"descricao"} onChange={onChangeDescricao}/>
+      <TextField style={{margin: "5px"}} type={"text"} label={"descricao"} onChange={onChangeDescricao}/>
       <br/>
-      <TextField type={"radio"} label={"finalizada"} onChange={onChangeFinalizada}/>
+      <FormControlLabel control={<Switch/>} label={"finalizada"} onChange={onChangeFinalizada}/>
       <br/>
-      <TextField type={"text"} label={"prioridade"} onChange={onChangePrioridade}/>
+      <TextField style={{margin: "5px"}} type={"text"} label={"prioridade"} onChange={onChangePrioridade}/>
       <br/>
-      <Button onClick={onSubmit}> Cadastrar Tarefa </Button>
+      <Button onClick={onSubmit} variant={"contained"}> Cadastrar Tarefa </Button>
     </form>
     </div>
   )
