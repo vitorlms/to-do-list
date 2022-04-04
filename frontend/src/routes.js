@@ -9,7 +9,7 @@ function Rotas() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path={''} element={<Home />} /> */}
+        <Route path={''} element={<Home />} />
         <Route path={'cadastrar-tarefa'} element={<CadastrarTarefa/>}/>
         <Route path={'editar-tarefa'} element={<EditarTarefa/>}/>
         <Route path={'cadastrar-membro'} element={<CadastrarMembro/>}/>
